@@ -45,6 +45,16 @@ public class JsonParser {
 			JSONArray words = joResult.getJSONArray("ws");
 			for (int i = 0; i < words.length(); i++) {
 				JSONArray items = words.getJSONObject(i).getJSONArray("cw");
+
+				JSONObject obj = items.getJSONObject(0);
+				if(obj.getString("w").contains("nomatch"))
+				{
+					ret.append("没有匹配结果.");
+					return ret.toString();
+				}
+				ret.append(obj.getString("w"));
+
+				/*
 				for(int j = 0; j < items.length(); j++)
 				{
 					JSONObject obj = items.getJSONObject(j);
@@ -57,6 +67,7 @@ public class JsonParser {
 					ret.append("【置信度】" + obj.getInt("sc"));
 					ret.append("\n");
 				}
+				*/
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
